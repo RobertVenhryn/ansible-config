@@ -40,3 +40,10 @@ $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
 (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
 powershell.exe -ExecutionPolicy ByPass -File $file
 #my-script---------------------------------------------------------------------------------------------------------------
+
+#to run a big raw script form github https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1
+$VAR=Invoke-WebRequest https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1
+$TEMP=New-TemporaryFile
+$FILE=$TEMP.FullName + "foransibleconfig.ps1"
+$VAR.Content | Out-File $FILE
+&$FILE
